@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parth Sharma | AI Engineer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quantico:wght@400;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        body {
+            font-family: 'Quantico', sans-serif;
+        }
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.75);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.125);
+        }
+        .text-glow {
+            text-shadow: 0 0 8px rgba(15, 238, 82, 0.8), 0 0 20px rgba(52, 211, 153, 0.5);
+        }
+        .btn-glow {
+             box-shadow: 0 0 15px rgba(52, 211, 153, 0.6), 0 0 25px rgba(52, 211, 153, 0.3);
+        }
+        .project-card {
+            background: rgba(24, 24, 27, 0.8); /* zinc-900 */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(52, 211, 153, 0.4);
+        }
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        html {
+            color-scheme: dark;
+        }
+        /* Modal Styles */
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+             background: #111111;
+             border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        /* Custom focus state */
+        :focus-visible {
+            outline: 2px solid #34d399;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        #home::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 15rem; /* 240px */
+            background: linear-gradient(to bottom, transparent, #000);
+            z-index: 1;
+        }
+
+        #particles-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="bg-black text-slate-300">
+
+    <!-- Header -->
+    <header id="header" class="glass-nav fixed top-0 left-0 right-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-emerald-400 text-glow">PS</a>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="hover:text-emerald-400 transition-colors duration-300">Home</a>
+                <a href="#about" class="hover:text-emerald-400 transition-colors duration-300">About</a>
+                <a href="#experience" class="hover:text-emerald-400 transition-colors duration-300">Experience</a>
+                <a href="#projects" class="hover:text-emerald-400 transition-colors duration-300">Projects</a>
+                <a href="#blog" class="hover:text-emerald-400 transition-colors duration-300">Blog</a>
+                <a href="#contact" class="hover:text-emerald-400 transition-colors duration-300">Contact</a>
+            </div>
+            <!-- Mobile Hamburger Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl" aria-label="Open mobile menu">
+                <i class='bx bx-menu text-3xl'></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black/90 backdrop-blur-sm">
+            <a href="#home" class="block text-center py-3 px-6 hover:bg-zinc-800 transition-colors duration-300">Home</a>
+            <a href="#about" class="block text-center py-3 px-6 hover:bg-zinc-800 transition-colors duration-300">About</a>
+            <a href="#experience" class="block text-center py-3 px-6 hover:bg-zinc-800 transition-colors duration-300">Experience</a>
+            <a href="#projects" class="block text-center py-3 px-6 hover:bg-zinc-800 transition-colors duration-300">Projects</a>
+            <a href="#blog" class="block text-center py-3 px-6 hover:bg-zinc-800 transition-colors duration-300">Blog</a>
+            <a href="#contact" class="block text-center py-3 px-6 hover:bg-zinc-800 transition-colors duration-300">Contact</a>
+        </div>
+    </header>
+
+    <!-- Home/Hero Section -->
+    <section id="home" class="min-h-screen relative flex items-center justify-center text-center pt-20 overflow-hidden px-6">
+        <div id="particles-js"></div>
+        <div class="w-full max-w-4xl mx-auto fade-in-up relative z-10">
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight mb-4">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-600"> Parth Sharma</span>
+            </h1>
+            <p class="text-lg sm:text-xl md:text-2xl text-slate-400 mb-6">Data Science  ·  Machine Learning  ·  MLOps</p>
+            <p class="text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-8">
+                "Turning data into decisions, models into systems, and systems into scalable cloud solutions."
+            </p>
+            <div class="flex justify-center items-center gap-x-6 mb-8">
+                <a href="https://github.com/ParthSharma272" target="_blank" class="text-3xl hover:text-emerald-400 transition-transform duration-300 hover:scale-110" aria-label="Visit my GitHub profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+                <a href="#" target="https://www.linkedin.com/in/parth-sharma-08b1b424b/" class="text-3xl hover:text-emerald-400 transition-transform duration-300 hover:scale-110" aria-label="Visit my LinkedIn profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <a href="#" target="https://www.kaggle.com/parthsharma272" class="text-3xl hover:text-emerald-400 transition-transform duration-300 hover:scale-110" aria-label="Visit my Kaggle profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248L8.764 16.075l-1.617 1.617v5.46c0 .187-.07.281-.211.281H3.745c-.187 0-.281-.094-.281-.281V.704c0-.187.094-.281.281-.281h3.191c.141 0 .211.094.211.281v11.896L13.233 6.52c.165-.165.329-.248.492-.248h3.05c.187 0 .293.082.317.248.023.093-.012.178-.105.248l-5.951 6.075 6.26 8.604c.105.141.117.239.528.412z"/></svg>
+                </a>
+                <a href="#" target="https://medium.com/@parthsharma23212" class="text-3xl hover:text-emerald-400 transition-transform duration-300 hover:scale-110" aria-label="Visit my Medium profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+                </a>
+            </div>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#projects" class="w-full sm:w-auto bg-emerald-500 text-black font-bold py-3 px-8 rounded-full hover:bg-emerald-400 btn-glow transition-all duration-300">View My Work</a>
+                <a href="./assets/Parth_Sharma_CV.pdf" download="Parth_Sharma_CV.pdf" class="w-full sm:w-auto border-2 border-emerald-500 text-emerald-500 font-bold py-3 px-8 rounded-full hover:bg-emerald-500 hover:text-black transition-all duration-300">Download CV</a>
+            </div>
+        </div>
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
+            <a href="#about" class="block" aria-label="Scroll to next section">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-emerald-400 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+            </a>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-6">
+        <!-- About Section -->
+        <section id="about" class="pt-16 pb-24">
+            <h2 class="text-4xl font-bold text-center mb-16 fade-in-up">About Me</h2>
+            <div class="grid md:grid-cols-5 gap-y-12 md:gap-x-12 items-start">
+                <div class="md:col-span-2 fade-in-up flex justify-center md:justify-start" style="transition-delay: 200ms;">
+                    <div class="rounded-full w-64 h-64 sm:w-80 sm:h-80 md:w-full md:h-auto md:aspect-square shrink-0 mx-auto p-1 relative">
+                        <!-- Animated spinning neon border -->
+                        <div class="absolute inset-0 rounded-full animate-spin" style="animation-duration: 10s;">
+                            <svg class="w-full h-full" viewBox="0 0 200 200">
+                                <circle cx="100" cy="100" r="98" fill="none" stroke="url(#neonGradient)" stroke-width="5" stroke-dasharray="15 10" opacity="0.8"/>
+                                <defs>
+                                    <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#34d399;stop-opacity:1" />
+                                        <stop offset="50%" style="stop-color:#10b981;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <!-- Inner border with glow effect -->
+                        <div class="w-full h-full rounded-full border-2 border-emerald-400/30 shadow-[0_0_20px_rgba(52,211,153,0.5)] overflow-hidden flex items-center justify-center">
+                            <img src="./assets/profile.png" class="w-full h-full object-cover object-contain rounded-full scale-90 transform">
+                        </div>
+                    </div>
+                </div>
+                <div class="md:col-span-3 fade-in-up">
+                    <p class="mb-6 text-lg text-slate-400 max-w-3xl">
+                        I'm a final year B.Tech student with a deep passion for building intelligent systems. My expertise lies in Machine Learning, Deep Learning, Natural Language Processing, and developing end-to-end MLOps pipelines. I thrive on transforming complex data into robust, scalable AI solutions.
+                    </p>
+                    <h3 class="text-2xl font-semibold text-emerald-400 mb-4">Skills & Technologies</h3>
+                    <div class="flex flex-wrap gap-3 mb-8">
+                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">Python</span>
+                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">R</span>
+                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">SQL</span>
+                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">Pandas</span>
+                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">Numpy</span>
+                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">Seaborn</span>
+                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">NLTK</span>
+                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">Apache Airflow</span>
+                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">Docker</span>
+                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">MLFlow</span>
+                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">FastAPI</span>
+                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">Flask</span>
+                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">PyTorch</span>
+                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">TensorFlow</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Experience Section -->
+        <section id="experience" class="py-24">
+            <h2 class="text-4xl font-bold text-center mb-16 fade-in-up">Experience</h2>
+            <div id="timeline-container" class="relative max-w-4xl mx-auto px-4 md:px-0">
+                <!-- Timeline items will be injected here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24">
+            <h2 class="text-4xl font-bold text-center mb-12 fade-in-up">My Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card rounded-lg p-6 flex flex-col fade-in-up" data-project-id="0">
+                    <img src="assets/startup_health_engine.jpg" alt="Startup Health Engine Project Image" class="rounded-md mb-4 aspect-video object-cover">
+                    <h3 class="text-2xl font-bold text-emerald-400 mb-2">Startup Health Engine</h3>
+                    <p class="text-slate-400 flex-grow mb-4">Automated startup health assessment pipeline using Apache Airflow, OCR & RAG-based AI...</p>
+                    <div class="mt-auto text-emerald-500 font-semibold inline-flex items-center">
+                        View Details <i class='bx bx-right-arrow-alt ml-1'></i>
+                    </div>
+                </div>
+                 <!-- Project 2 -->
+                <div class="project-card rounded-lg p-6 flex flex-col fade-in-up" style="transition-delay: 200ms;" data-project-id="1">
+                     <img src="assets/semantic_book_rec.png" alt="Book Recommendation Project Image" class="rounded-md mb-4 aspect-video object-cover">
+                    <h3 class="text-2xl font-bold text-emerald-400 mb-2">Book Recommendation Engine</h3>
+                    <p class="text-slate-400 flex-grow mb-4">AI-powered recommendation engine using vector search and LLMs for semantic understanding...</p>
+                    <div class="mt-auto text-emerald-500 font-semibold inline-flex items-center">
+                        View Details <i class='bx bx-right-arrow-alt ml-1'></i>
+                    </div>
+                </div>
+                 <!-- Project 3 -->
+                <div class="project-card rounded-lg p-6 flex flex-col fade-in-up" style="transition-delay: 400ms;" data-project-id="2">
+                    <img src="assets/Leishmaniasis_ML.jpeg" alt="Drug Discovery Project Image" class="rounded-md mb-4 aspect-video object-cover">
+                    <h3 class="text-2xl font-bold text-emerald-400 mb-2">Leishmaniasis Drug Discovery</h3>
+                    <p class="text-slate-400 flex-grow mb-4">End-to-end ML pipeline for drug discovery using ChEMBL data. Trained 36 models...</p>
+                     <div class="mt-auto text-emerald-500 font-semibold inline-flex items-center">
+                        View Details <i class='bx bx-right-arrow-alt ml-1'></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section id="blog" class="py-24">
+            <h2 class="text-4xl font-bold text-center mb-12 fade-in-up">My Articles</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                 <!-- Blog Post 1 -->
+                <div class="project-card rounded-lg p-6 flex flex-col fade-in-up" style="cursor: default;">
+                    <h3 class="text-2xl font-bold text-emerald-400 mb-2">The Rise of MLOps: Automating the ML Lifecycle</h3>
+                    <p class="text-slate-400 flex-grow mb-4">An overview of MLOps principles and why they are crucial for building scalable and maintainable machine learning systems in production...</p>
+                    <a href="https://medium.com/@parthsharma23212/the-rise-of-mlops-automating-the-ml-lifecycle-c1331ce59a24" target="_blank" class="mt-auto text-emerald-400 hover:text-emerald-300 font-semibold inline-flex items-center">
+                        Read More <i class='bx bx-right-arrow-alt ml-1'></i>
+                    </a>
+                </div>
+                 <!-- Blog Post 2 -->
+                <div class="project-card rounded-lg p-6 flex flex-col fade-in-up" style="transition-delay: 200ms; cursor: default;">
+                    <h3 class="text-2xl font-bold text-emerald-400 mb-2">Understanding Vector Databases for AI Applications</h3>
+                    <p class="text-slate-400 flex-grow mb-4">A deep dive into how vector databases work and why they are the backbone of modern AI applications like semantic search and RAG...</p>
+                    <a href="https://medium.com/@parthsharma23212/understanding-vector-databases-for-ai-applications-a4663c3891fb" target="_blank" class="mt-auto text-emerald-400 hover:text-emerald-300 font-semibold inline-flex items-center">
+                        Read More <i class='bx bx-right-arrow-alt ml-1'></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24">
+            <h2 class="text-4xl font-bold text-center mb-4 fade-in-up">Get In Touch</h2>
+            <p class="text-center text-slate-400 max-w-xl mx-auto mb-12 fade-in-up">I'm currently seeking new opportunities. Whether you have a question or just want to say hi, my inbox is always open!</p>
+            <form action="#" method="POST" class="max-w-xl mx-auto fade-in-up">
+                <div class="mb-4">
+                    <label for="name" class="block mb-2 text-sm font-medium">Your Name</label>
+                    <input type="text" id="name" name="name" class="bg-zinc-800 border border-zinc-700 text-slate-300 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5" placeholder="John Doe" required>
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block mb-2 text-sm font-medium">Your Email</label>
+                    <input type="email" id="email" name="email" class="bg-zinc-800 border border-zinc-700 text-slate-300 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5" placeholder="name@email.com" required>
+                </div>
+                 <div class="mb-4">
+                    <label for="subject" class="block mb-2 text-sm font-medium">Subject</label>
+                    <input type="text" id="subject" name="subject" class="bg-zinc-800 border border-zinc-700 text-slate-300 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5" placeholder="Let's connect!" required>
+                </div>
+                <div class="mb-6">
+                    <label for="message" class="block mb-2 text-sm font-medium">Your Message</label>
+                    <textarea id="message" name="message" rows="4" class="bg-zinc-800 border border-zinc-700 text-slate-300 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5" placeholder="Your message..."></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="bg-emerald-500 text-black font-bold py-3 px-10 rounded-full hover:bg-emerald-400 btn-glow transition-all duration-300">Send Message</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-zinc-800">
+        <div class="container mx-auto px-6 py-6 text-center text-slate-500">
+            <p>&copy; 2025 Parth Sharma. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Project Detail Modal -->
+    <div id="project-modal" class="fixed inset-0 z-50 items-center justify-center hidden">
+        <div class="modal-overlay absolute inset-0 cursor-pointer"></div>
+        <div class="modal-content w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 rounded-lg shadow-xl relative mx-4">
+            <button id="close-project-modal-btn" class="absolute top-4 right-4 text-3xl hover:text-emerald-400" aria-label="Close project details">&times;</button>
+            <div id="project-modal-body">
+                <!-- Content will be injected by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        // --- Page Logic & Data ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectsData = [
+                {
+                    id: 0, title: "Startup Health Engine",
+                    images: { cover: "https://private-user-images.githubusercontent.com/136683882/484482736-04d3bfdb-a4d2-46ec-8d3b-8c5ffd1d3eee.jpg?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTczMjQzMzYsIm5iZiI6MTc1NzMyNDAzNiwicGF0aCI6Ii8xMzY2ODM4ODIvNDg0NDgyNzM2LTA0ZDNiZmRiLWE0ZDItNDZlYy04ZDNiLThjNWZmZDFkM2VlZS5qcGc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwOTA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDkwOFQwOTMzNTZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0zY2EwMGQxYmZjOTcyMDg5ZTAxMGZjODRhNWJiYmMwMDJjNzc1MDgxMThhY2U5YzgwNTExNzgzMmEzZjlmMzY3JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.3QhAEAKN4QXaq7d8pO617G_u34Fc3ytj9OmCiDIzRAg"},
+                    summary: ["Designed an automated pipeline to assess startup health by extracting and analyzing KPIs from pitch decks, financial reports, and investor updates.", "Built with Apache Airflow for orchestration, OCR + RAG-based AI for KPI extraction, and MLflow for tracking model confidence scores.", "Implemented a 33-KPI scoring model tailored to the Indian SaaS ecosystem, normalizing metrics into category scores and an overall health score.", "Delivered an interactive Streamlit dashboard for real-time scores, confidence metrics, and AI-generated qualitative insights."],
+                    techStack: ["Python", "SQL", "Apache Airflow", "Docker", "MLflow"],
+                    links: { github: "https://github.com/ParthSharma272/Startup_health_engine", live: null }
+                },
+                {
+                    id: 1, title: "Book Recommendation Engine",
+                    images: { cover: "https://private-user-images.githubusercontent.com/136683882/446393598-dee61a1f-8ec2-4536-8d37-50e2e62617a0.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTczMjQ2MDYsIm5iZiI6MTc1NzMyNDMwNiwicGF0aCI6Ii8xMzY2ODM4ODIvNDQ2MzkzNTk4LWRlZTYxYTFmLThlYzItNDUzNi04ZDM3LTUwZTJlNjI2MTdhMC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwOTA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDkwOFQwOTM4MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00MjZjZDdkMmY5MjQ2NWE2ZjM1MzVkYmUyODZkODQ5YWZmOWMxMmU1YzZjM2U3OTg3ODY5OThmNGZjMTFhZjdhJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.KXFDnPakVXy7YieRg1H7SZE2URdcpz1KGbDBNSYMfOI"},
+                    summary: ["Built an AI-powered engine that understands book meaning by transforming descriptions into embeddings and using vector search.", "Crafted robust data pipelines to clean, preprocess, and generate embeddings for thousands of book descriptions from Kaggle.", "Enhanced recommendation logic with LLM-based insights, including zero-shot classification and sentiment analysis to refine suggestions.", "Delivered a polished user experience with a Gradio interface for instant, tailored recommendations."],
+                    techStack: ["Python", "Large Language Models (LLM)", "Vector Databases", "LangChain", "Gradio"],
+                    links: { github: "https://github.com/ParthSharma272/Semantic_book_rec", live: null }
+                },
+                {
+                    id: 2, title: "Leishmaniasis Drug Discovery With ML",
+                    images: { cover: "https://private-user-images.githubusercontent.com/136683882/396881083-ea1061e1-0a7d-471c-8eb3-b0b9d79c06ab.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTczMjQ3ODMsIm5iZiI6MTc1NzMyNDQ4MywicGF0aCI6Ii8xMzY2ODM4ODIvMzk2ODgxMDgzLWVhMTA2MWUxLTBhN2QtNDcxYy04ZWIzLWIwYjlkNzljMDZhYi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwOTA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDkwOFQwOTQxMjNaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1kZDFkZGZhODMxMWM0Y2E1M2U5ZmZmOWQxZTZiNmI3N2RiYmQzYjUwOWNhMzcxNTNiMGYzOTdjMDRmNjhhYTlkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.R0NAdeU0aZlxz6iO3MUkO207cfJD2quDjId3CHQTKyg", graph: "https://placehold.co/600x400/000000/34D399?text=Model+Accuracy+Chart" },
+                    summary: ["Developed an end-to-end ML pipeline to aid drug discovery for Leishmaniasis using ChEMBL bioactivity data.", "Engineered molecular representations using 4 fingerprinting techniques (RDKit, Morgan, MACCS, Atom Pair) to capture structural patterns.", "Trained and benchmarked 36 machine learning models, achieving ~90% classification accuracy with a Random Forest model.", "Applied feature importance, PCA, and t-SNE to reveal key molecular attributes, providing interpretable insights for prioritizing compounds."],
+                    techStack: ["Python", "Jupyter", "Data Visualization", "Pandas", "Matplotlib", "Machine Learning"],
+                    links: { github: "https://github.com/ParthSharma272/Drug-Discovery-research-using-ML", live: null }
+                }
+            ];
+
+            const experienceData = [
+                {
+                    date: "Jul 2025 - Aug 2025",
+                    title: "Internship @ ProdigalAI",
+                    description: "Led the development of an automated pipeline to assess startup health by extracting KPIs from pitch decks and financial reports using Apache Airflow, OCR, and RAG-based AI."
+                },
+                {
+                    date: "Jul 2024 - Aug 2024",
+                    title: "AI Intern  @ IBM",
+                    description: "Completed IBM AI Agentic Learning path. Built a crop price prediction system. ."
+                },
+                {
+                    date: "Jul 2024 - Aug 2024",
+                    title: "Summer Research Internship @ USAR",
+                    description: "Developed an end-to-end ML pipeline for drug discovery, leveraging ChEMBL data to train and benchmark 36 models, achieving ~90% accuracy with Random Forest."
+                },
+                {
+                    date: "May 2024 - June 2024",
+                    title: "Data Science Intern @ CodSoft",
+                    description: "Built end-to-end ML solutions with Python, applying EDA, feature engineering, and predictive modeling across Titanic survival analysis, credit card fraud detection, business sales forecasting, and movie recommendation systems."
+                },
+            ];
+
+            const projectModal = document.getElementById('project-modal');
+            const projectModalBody = document.getElementById('project-modal-body');
+            const closeProjectModalBtn = document.getElementById('close-project-modal-btn');
+            const modalOverlay = projectModal.querySelector('.modal-overlay');
+
+            document.querySelectorAll('.project-card[data-project-id]').forEach(card => {
+                card.addEventListener('click', () => {
+                    const projectId = parseInt(card.dataset.projectId);
+                    const project = projectsData.find(p => p.id === projectId);
+                    if (project) {
+                        populateProjectModal(project);
+                        projectModal.classList.remove('hidden');
+                        projectModal.classList.add('flex');
+                    }
+                });
+            });
+
+            function populateProjectModal(project) {
+                const techStackHtml = project.techStack.map(tech => `<span class="bg-zinc-800 text-emerald-300 py-1 px-3 rounded-md text-sm">${tech}</span>`).join('');
+                const summaryHtml = project.summary.map(point => `<li class="mb-2">${point}</li>`).join('');
+                projectModalBody.innerHTML = `
+                    <h2 class="text-3xl font-bold text-emerald-400 mb-4">${project.title}</h2>
+                    <img src="${project.images.cover}" alt="${project.title} cover image" class="rounded-lg mb-6 w-full aspect-video object-cover">
+                    <h3 class="text-2xl font-semibold mb-3 text-emerald-500">Key Features</h3>
+                    <ul class="list-disc list-inside mb-6 text-slate-400">${summaryHtml}</ul>
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-semibold mb-3 text-emerald-500">Tech Stack</h3>
+                        <div class="flex flex-wrap gap-3">${techStackHtml}</div>
+                    </div>
+                    <div class="flex gap-4 mt-8 justify-end">
+                        <a href="${project.links.github}" target="_blank" class="border-2 border-emerald-500 text-emerald-500 font-bold py-2 px-6 rounded-full hover:bg-emerald-500 hover:text-black transition-all duration-300 inline-flex items-center">
+                            View on GitHub <i class='bx bx-link-external ml-2'></i>
+                        </a>
+                    </div>
+                `;
+            }
+
+            const closeProjectModal = () => {
+                projectModal.classList.add('hidden');
+                projectModal.classList.remove('flex');
+            };
+
+            closeProjectModalBtn.addEventListener('click', closeProjectModal);
+            modalOverlay.addEventListener('click', closeProjectModal);
+
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuBtn) {
+                 mobileMenuBtn.addEventListener('click', () => { 
+                    if(mobileMenu) mobileMenu.classList.toggle('hidden'); 
+                });
+            }
+           
+            const mobileNavLinks = document.querySelectorAll('#mobile-menu a');
+            mobileNavLinks.forEach(link => { 
+                link.addEventListener('click', () => { 
+                    if(mobileMenu) mobileMenu.classList.add('hidden'); 
+                }); 
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
+            }, { threshold: 0.1 });
+            
+            function populateTimeline() {
+                const container = document.getElementById('timeline-container');
+                let timelineHTML = '';
+                experienceData.forEach((item, index) => {
+                    const isOdd = index % 2 !== 0;
+                    const sideClass = isOdd ? 'md:ml-auto md:pl-8' : 'md:pr-8';
+                    const textAlignClass = isOdd ? 'md:text-left' : 'md:text-right';
+
+                    timelineHTML += `
+                        <div class="relative mb-12 fade-in-up">
+                            <div class="absolute w-4 h-4 bg-emerald-400 rounded-full left-4 -top-1.5 transform -translate-x-1/2 border-4 border-black md:left-1/2"></div>
+                            <div class="w-full pl-8 md:w-1/2 ${sideClass}">
+                                <div class="bg-zinc-900 p-6 rounded-lg border border-zinc-800">
+                                    <p class="text-sm text-slate-400 ${textAlignClass}">${item.date}</p>
+                                    <h3 class="text-xl font-bold text-emerald-400 ${textAlignClass}">${item.title}</h3>
+                                    <p class="text-slate-400 mt-2 ${textAlignClass}">${item.description}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = `
+                    <div class="absolute h-full w-0.5 bg-zinc-700 left-4 md:left-1/2 md:-translate-x-1/2"></div>
+                    ${timelineHTML}
+                `;
+                 const allFadeInElements = document.querySelectorAll('.fade-in-up');
+                 allFadeInElements.forEach((el) => observer.observe(el));
+            }
+            populateTimeline();
+
+            // --- Particles.js Logic ---
+            particlesJS('particles-js', {
+              "particles": {
+                "number": {
+                  "value": 118,
+                  "density": {
+                    "enable": true,
+                    "value_area": 631.3181133058181
+                  }
+                },
+                "color": {
+                  "value": "#ffffff"
+                },
+                "shape": {
+                  "type": "star",
+                  "stroke": {
+                    "width": 0,
+                    "color": "#000000"
+                  },
+                  "polygon": {
+                    "nb_sides": 4
+                  },
+                  "image": {
+                    "src": "img/github.svg",
+                    "width": 100,
+                    "height": 100
+                  }
+                },
+                "opacity": {
+                  "value": 0.5,
+                  "random": false,
+                  "anim": {
+                    "enable": false,
+                    "speed": 1,
+                    "opacity_min": 0.1,
+                    "sync": false
+                  }
+                },
+                "size": {
+                  "value": 8.017060304327615,
+                  "random": true,
+                  "anim": {
+                    "enable": false,
+                    "speed": 63.33842206125967,
+                    "size_min": 4.060155260337158,
+                    "sync": false
+                  }
+                },
+                "line_linked": {
+                  "enable": true,
+                  "distance": 150,
+                  "color": "#ffffff",
+                  "opacity": 0.4,
+                  "width": 1
+                },
+                "move": {
+                  "enable": true,
+                  "speed": 6,
+                  "direction": "none",
+                  "random": false,
+                  "straight": false,
+                  "out_mode": "out",
+                  "bounce": false,
+                  "attract": {
+                    "enable": false,
+                    "rotateX": 600,
+                    "rotateY": 1200
+                  }
+                }
+              },
+              "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                  "onhover": {
+                    "enable": true,
+                    "mode": "repulse"
+                  },
+                  "onclick": {
+                    "enable": true,
+                    "mode": "push"
+                  },
+                  "resize": true
+                },
+                "modes": {
+                  "grab": {
+                    "distance": 400,
+                    "line_linked": {
+                      "opacity": 1
+                    }
+                  },
+                  "bubble": {
+                    "distance": 400,
+                    "size": 40,
+                    "duration": 2,
+                    "opacity": 8,
+                    "speed": 3
+                  },
+                  "repulse": {
+                    "distance": 200,
+                    "duration": 0.4
+                  },
+                  "push": {
+                    "particles_nb": 4
+                  },
+                  "remove": {
+                    "particles_nb": 2
+                  }
+                }
+              },
+              "retina_detect": true
+            });
+        });
+    </script>
+</body>
+</html>
