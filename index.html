@@ -8,52 +8,135 @@
     <link href="https://fonts.googleapis.com/css2?family=Quantico:wght@400;700&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
+        * {
+            scroll-behavior: smooth;
+        }
+        
         body {
             font-family: 'Quantico', sans-serif;
+            overflow-x: hidden;
         }
+        
         .glass-nav {
-            background: rgba(10, 10, 10, 0.75);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.125);
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(52, 211, 153, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
+        
         .text-glow {
-            text-shadow: 0 0 8px rgba(15, 238, 82, 0.8), 0 0 20px rgba(52, 211, 153, 0.5);
+            text-shadow: 0 0 10px rgba(52, 211, 153, 0.9), 0 0 25px rgba(52, 211, 153, 0.6), 0 0 40px rgba(52, 211, 153, 0.3);
+            animation: pulse-glow 2s ease-in-out infinite;
         }
+        
+        @keyframes pulse-glow {
+            0%, 100% { text-shadow: 0 0 10px rgba(52, 211, 153, 0.9), 0 0 25px rgba(52, 211, 153, 0.6); }
+            50% { text-shadow: 0 0 15px rgba(52, 211, 153, 1), 0 0 35px rgba(52, 211, 153, 0.8), 0 0 50px rgba(52, 211, 153, 0.4); }
+        }
+        
         .btn-glow {
-             box-shadow: 0 0 15px rgba(52, 211, 153, 0.6), 0 0 25px rgba(52, 211, 153, 0.3);
+            box-shadow: 0 0 20px rgba(52, 211, 153, 0.7), 0 0 35px rgba(52, 211, 153, 0.4);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
+        .btn-glow:hover {
+            box-shadow: 0 0 30px rgba(52, 211, 153, 0.9), 0 0 50px rgba(52, 211, 153, 0.6);
+            transform: translateY(-2px) scale(1.05);
+        }
+        
         .project-card {
-            background: rgba(24, 24, 27, 0.8); /* zinc-900 */
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(135deg, rgba(24, 24, 27, 0.95) 0%, rgba(18, 18, 20, 0.95) 100%);
+            border: 1px solid rgba(52, 211, 153, 0.15);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .project-card:hover::before {
+            left: 100%;
+        }
+        
         .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 20px rgba(52, 211, 153, 0.4);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(52, 211, 153, 0.3), 0 0 0 1px rgba(52, 211, 153, 0.3);
+            border-color: rgba(52, 211, 153, 0.4);
         }
+        
+        .project-card img {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .project-card:hover img {
+            transform: scale(1.08);
+        }
+        
+        .skill-tag {
+            background: linear-gradient(135deg, rgba(24, 24, 27, 0.9) 0%, rgba(39, 39, 42, 0.9) 100%);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-tag:hover {
+            background: linear-gradient(135deg, rgba(52, 211, 153, 0.2) 0%, rgba(52, 211, 153, 0.1) 100%);
+            border-color: rgba(52, 211, 153, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(52, 211, 153, 0.3);
+        }
+        
         .fade-in-up {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
         .fade-in-up.visible {
             opacity: 1;
             transform: translateY(0);
         }
+        
         html {
             color-scheme: dark;
         }
+        
         /* Modal Styles */
         .modal-overlay {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
         }
+        
         .modal-content {
-             background: #111111;
-             border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, rgba(17, 17, 17, 0.98) 0%, rgba(24, 24, 27, 0.98) 100%);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(52, 211, 153, 0.2);
+            animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
         /* Custom focus state */
         :focus-visible {
             outline: 2px solid #34d399;
@@ -67,8 +150,8 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 15rem; /* 240px */
-            background: linear-gradient(to bottom, transparent, #000);
+            height: 18rem;
+            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.8) 50%, #000);
             z-index: 1;
         }
 
@@ -80,90 +163,194 @@
             height: 100%;
             z-index: 0;
         }
+        
+        /* Enhanced Timeline Styles */
+        .timeline-item {
+            background: linear-gradient(135deg, rgba(24, 24, 27, 0.9) 0%, rgba(18, 18, 20, 0.9) 100%);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .timeline-item:hover {
+            border-color: rgba(52, 211, 153, 0.5);
+            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.2);
+            transform: scale(1.02);
+        }
+        
+        /* Enhanced Social Icons */
+        .social-icon {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 0 5px rgba(52, 211, 153, 0.3));
+        }
+        
+        .social-icon:hover {
+            filter: drop-shadow(0 0 15px rgba(52, 211, 153, 0.8));
+            transform: translateY(-5px) rotate(5deg);
+        }
+        
+        /* Enhanced Form Styles */
+        .form-input {
+            background: rgba(24, 24, 27, 0.8);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .form-input:focus {
+            background: rgba(24, 24, 27, 0.95);
+            border-color: rgba(52, 211, 153, 0.6);
+            box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.1);
+        }
+        
+        /* Section Headers */
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #34d399, transparent);
+            border-radius: 2px;
+        }
+        
+        /* Scroll Indicator Enhanced */
+        .scroll-indicator {
+            animation: bounce-slow 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Profile Image Enhancement */
+        .profile-border-animated {
+            animation: rotate-border 15s linear infinite;
+        }
+        
+        @keyframes rotate-border {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
     </style>
 </head>
 <body class="bg-black text-slate-300">
 
     <!-- Header -->
     <header id="header" class="glass-nav fixed top-0 left-0 right-0 z-50">
-        <nav class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-emerald-400 text-glow">PS</a>
+        <nav class="container mx-auto px-4 sm:px-6 py-5 flex justify-between items-center">
+            <a href="#" class="text-3xl font-bold text-emerald-400 text-glow tracking-wider">PS</a>
             <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#home" class="hover:text-emerald-400 transition-colors duration-300">Home</a>
-                <a href="#about" class="hover:text-emerald-400 transition-colors duration-300">About</a>
-                <a href="#experience" class="hover:text-emerald-400 transition-colors duration-300">Experience</a>
-                <a href="#projects" class="hover:text-emerald-400 transition-colors duration-300">Projects</a>
-                <a href="#blog" class="hover:text-emerald-400 transition-colors duration-300">Blog</a>
-                <a href="#contact" class="hover:text-emerald-400 transition-colors duration-300">Contact</a>
+            <div class="hidden md:flex items-center space-x-10">
+                <a href="#home" class="relative group hover:text-emerald-400 transition-colors duration-300 font-medium">
+                    Home
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#about" class="relative group hover:text-emerald-400 transition-colors duration-300 font-medium">
+                    About
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#experience" class="relative group hover:text-emerald-400 transition-colors duration-300 font-medium">
+                    Experience
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#projects" class="relative group hover:text-emerald-400 transition-colors duration-300 font-medium">
+                    Projects
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#blog" class="relative group hover:text-emerald-400 transition-colors duration-300 font-medium">
+                    Blog
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contact" class="relative group hover:text-emerald-400 transition-colors duration-300 font-medium">
+                    Contact
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
             </div>
             <!-- Mobile Hamburger Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-2xl" aria-label="Open mobile menu">
-                <i class='bx bx-menu text-3xl'></i>
+            <button id="mobile-menu-btn" class="md:hidden text-2xl transition-transform duration-300 hover:scale-110" aria-label="Open mobile menu">
+                <i class='bx bx-menu text-3xl text-emerald-400'></i>
             </button>
         </nav>
         <!-- Mobile Menu Panel -->
-        <div id="mobile-menu" class="hidden md:hidden bg-black/90 backdrop-blur-sm">
-            <a href="#home" class="block text-center py-3 px-6 hover:bg-zinc-800 transition-colors duration-300">Home</a>
-            <a href="#about" class="block text-center py-3 px-6 hover:bg-zinc-800 transition-colors duration-300">About</a>
-            <a href="#experience" class="block text-center py-3 px-6 hover:bg-zinc-800 transition-colors duration-300">Experience</a>
-            <a href="#projects" class="block text-center py-3 px-6 hover:bg-zinc-800 transition-colors duration-300">Projects</a>
-            <a href="#blog" class="block text-center py-3 px-6 hover:bg-zinc-800 transition-colors duration-300">Blog</a>
-            <a href="#contact" class="block text-center py-3 px-6 hover:bg-zinc-800 transition-colors duration-300">Contact</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 backdrop-blur-md border-t border-emerald-400/20">
+            <a href="#home" class="block text-center py-4 px-6 hover:bg-emerald-400/10 hover:text-emerald-400 transition-all duration-300 border-b border-zinc-800/50">Home</a>
+            <a href="#about" class="block text-center py-4 px-6 hover:bg-emerald-400/10 hover:text-emerald-400 transition-all duration-300 border-b border-zinc-800/50">About</a>
+            <a href="#experience" class="block text-center py-4 px-6 hover:bg-emerald-400/10 hover:text-emerald-400 transition-all duration-300 border-b border-zinc-800/50">Experience</a>
+            <a href="#projects" class="block text-center py-4 px-6 hover:bg-emerald-400/10 hover:text-emerald-400 transition-all duration-300 border-b border-zinc-800/50">Projects</a>
+            <a href="#blog" class="block text-center py-4 px-6 hover:bg-emerald-400/10 hover:text-emerald-400 transition-all duration-300 border-b border-zinc-800/50">Blog</a>
+            <a href="#contact" class="block text-center py-4 px-6 hover:bg-emerald-400/10 hover:text-emerald-400 transition-all duration-300">Contact</a>
         </div>
     </header>
 
     <!-- Home/Hero Section -->
     <section id="home" class="min-h-screen relative flex items-center justify-center text-center pt-20 overflow-hidden px-6">
         <div id="particles-js"></div>
-        <div class="w-full max-w-4xl mx-auto fade-in-up relative z-10">
-            <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight mb-4">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-600"> Parth Sharma</span>
+        <div class="w-full max-w-5xl mx-auto fade-in-up relative z-10">
+            <h1 class="text-5xl sm:text-6xl md:text-8xl font-extrabold leading-tight mb-6">
+                <span class="gradient-text drop-shadow-2xl">Parth Sharma</span>
             </h1>
-            <p class="text-lg sm:text-xl md:text-2xl text-slate-400 mb-6">Data Science  ·  Machine Learning  ·  MLOps</p>
-            <p class="text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-8">
+            <p class="text-xl sm:text-2xl md:text-3xl text-slate-300 mb-8 font-semibold tracking-wide">
+                Data Science  <span class="text-emerald-400">·</span>  Machine Learning  <span class="text-emerald-400">·</span>  MLOps
+            </p>
+            <p class="text-lg sm:text-xl md:text-2xl max-w-4xl mx-auto mb-12 text-slate-400 leading-relaxed italic">
                 "Turning data into decisions, models into systems, and systems into scalable cloud solutions."
             </p>
-            <div class="flex justify-center items-center gap-x-6 mb-8">
-                <a href="https://github.com/ParthSharma272" target="_blank" class="text-3xl hover:text-emerald-400 transition-transform duration-300 hover:scale-110" aria-label="Visit my GitHub profile">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            <div class="flex justify-center items-center gap-x-8 mb-12">
+                <a href="https://github.com/ParthSharma272" target="_blank" class="social-icon text-4xl hover:text-emerald-400 transition-all duration-300" aria-label="Visit my GitHub profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 </a>
-                <a href="https://www.linkedin.com/in/parth-sharma-08b1b424b/" target="_blank" class="text-3xl hover:text-emerald-400 transition-transform duration-300 hover:scale-110" aria-label="Visit my LinkedIn profile">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                <a href="https://www.linkedin.com/in/parth-sharma-08b1b424b/" target="_blank" class="social-icon text-4xl hover:text-emerald-400 transition-all duration-300" aria-label="Visit my LinkedIn profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 </a>
-                <a href="https://www.kaggle.com/parthsharma272" target="_blank" class="text-3xl hover:text-emerald-400 transition-transform duration-300 hover:scale-110" aria-label="Visit my Kaggle profile">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248L8.764 16.075l-1.617 1.617v5.46c0 .187-.07.281-.211.281H3.745c-.187 0-.281-.094-.281-.281V.704c0-.187.094-.281.281-.281h3.191c.141 0 .211.094.211.281v11.896L13.233 6.52c.165-.165.329-.248.492-.248h3.05c.187 0 .293.082.317.248.023.093-.012.178-.105.248l-5.951 6.075 6.26 8.604c.105.141.117.239.528.412z"/></svg>
+                <a href="https://www.kaggle.com/parthsharma272" target="_blank" class="social-icon text-4xl hover:text-emerald-400 transition-all duration-300" aria-label="Visit my Kaggle profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248L8.764 16.075l-1.617 1.617v5.46c0 .187-.07.281-.211.281H3.745c-.187 0-.281-.094-.281-.281V.704c0-.187.094-.281.281-.281h3.191c.141 0 .211.094.211.281v11.896L13.233 6.52c.165-.165.329-.248.492-.248h3.05c.187 0 .293.082.317.248.023.093-.012.178-.105.248l-5.951 6.075 6.26 8.604c.105.141.117.239.528.412z"/></svg>
                 </a>
-                <a href="https://medium.com/@parthsharma23212" target="_blank" class="text-3xl hover:text-emerald-400 transition-transform duration-300 hover:scale-110" aria-label="Visit my Medium profile">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+                <a href="https://medium.com/@parthsharma23212" target="_blank" class="social-icon text-4xl hover:text-emerald-400 transition-all duration-300" aria-label="Visit my Medium profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
                 </a>
             </div>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#projects" class="w-full sm:w-auto bg-emerald-500 text-black font-bold py-3 px-8 rounded-full hover:bg-emerald-400 btn-glow transition-all duration-300">View My Work</a>
-                <a href="./assets/Parth_Sharma_CV.pdf" download="Parth_Sharma_CV.pdf" class="w-full sm:w-auto border-2 border-emerald-500 text-emerald-500 font-bold py-3 px-8 rounded-full hover:bg-emerald-500 hover:text-black transition-all duration-300">Download CV</a>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                <a href="#projects" class="w-full sm:w-auto bg-emerald-500 text-black font-bold py-4 px-10 rounded-full hover:bg-emerald-400 btn-glow transition-all duration-300 text-lg shadow-lg">View My Work</a>
+                <a href="./assets/Parth_Sharma_CV.pdf" download="Parth_Sharma_CV.pdf" class="w-full sm:w-auto border-2 border-emerald-500 text-emerald-400 font-bold py-4 px-10 rounded-full hover:bg-emerald-500 hover:text-black transition-all duration-300 text-lg shadow-lg hover:shadow-emerald-500/50">Download CV</a>
             </div>
         </div>
         <!-- Scroll Down Indicator -->
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
+        <div class="absolute bottom-16 left-1/2 transform -translate-x-1/2 scroll-indicator z-10">
             <a href="#about" class="block" aria-label="Scroll to next section">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-emerald-400 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-emerald-400 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+                <p class="text-emerald-400 text-xs mt-2 tracking-wider">SCROLL</p>
             </a>
         </div>
     </section>
 
     <main class="container mx-auto px-6">
         <!-- About Section -->
-        <section id="about" class="pt-16 pb-24">
-            <h2 class="text-4xl font-bold text-center mb-16 fade-in-up">About Me</h2>
-            <div class="grid md:grid-cols-5 gap-y-12 md:gap-x-12 items-start">
+        <section id="about" class="pt-20 pb-32">
+            <h2 class="section-title text-5xl font-bold text-center mb-20 fade-in-up gradient-text">About Me</h2>
+            <div class="grid md:grid-cols-5 gap-y-16 md:gap-x-16 items-start">
                 <div class="md:col-span-2 fade-in-up flex justify-center md:justify-start" style="transition-delay: 200ms;">
-                    <div class="rounded-full w-64 h-64 sm:w-80 sm:h-80 md:w-full md:h-auto md:aspect-square shrink-0 mx-auto p-1 relative">
+                    <div class="rounded-full w-72 h-72 sm:w-80 sm:h-80 md:w-full md:h-auto md:aspect-square shrink-0 mx-auto p-1 relative">
                         <!-- Animated spinning neon border -->
-                        <div class="absolute inset-0 rounded-full animate-spin" style="animation-duration: 10s;">
+                        <div class="absolute inset-0 rounded-full profile-border-animated">
                             <svg class="w-full h-full" viewBox="0 0 200 200">
-                                <circle cx="100" cy="100" r="98" fill="none" stroke="url(#neonGradient)" stroke-width="5" stroke-dasharray="15 10" opacity="0.8"/>
+                                <circle cx="100" cy="100" r="98" fill="none" stroke="url(#neonGradient)" stroke-width="4" stroke-dasharray="20 10" opacity="0.9"/>
                                 <defs>
                                     <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                         <stop offset="0%" style="stop-color:#34d399;stop-opacity:1" />
@@ -174,141 +361,176 @@
                             </svg>
                         </div>
                         <!-- Inner border with glow effect -->
-                        <div class="w-full h-full rounded-full border-2 border-emerald-400/30 shadow-[0_0_20px_rgba(52,211,153,0.5)] overflow-hidden flex items-center justify-center">
+                        <div class="w-full h-full rounded-full border-2 border-emerald-400/40 shadow-[0_0_30px_rgba(52,211,153,0.6)] overflow-hidden flex items-center justify-center">
                             <img src="./assets/profile.png" class="w-full h-full object-cover object-contain rounded-full scale-90 transform">
                         </div>
                     </div>
                 </div>
-                <div class="md:col-span-3 fade-in-up">
-                    <p class="mb-6 text-lg text-slate-400 max-w-3xl">
-                        I'm a final year B.Tech student with a deep passion for building intelligent systems. My expertise lies in Machine Learning, Deep Learning, Natural Language Processing, and developing end-to-end MLOps pipelines. I thrive on transforming complex data into robust, scalable AI solutions.
+                <div class="md:col-span-3 fade-in-up" style="transition-delay: 300ms;">
+                    <p class="mb-8 text-xl text-slate-300 max-w-3xl leading-relaxed">
+                        I'm a final year B.Tech student with a deep passion for building intelligent systems. My expertise lies in <span class="text-emerald-400 font-semibold">Machine Learning</span>, <span class="text-emerald-400 font-semibold">Deep Learning</span>, <span class="text-emerald-400 font-semibold">Natural Language Processing</span>, and developing end-to-end <span class="text-emerald-400 font-semibold">MLOps pipelines</span>. I thrive on transforming complex data into robust, scalable AI solutions.
                     </p>
-                    <h3 class="text-2xl font-semibold text-emerald-400 mb-4">Skills & Technologies</h3>
-                    <div class="flex flex-wrap gap-3 mb-8">
-                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">Python</span>
-                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">R</span>
-                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">SQL</span>
-                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">Pandas</span>
-                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">Numpy</span>
-                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">Seaborn</span>
-                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">NLTK</span>
-                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">Apache Airflow</span>
-                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">Docker</span>
-                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">MLFlow</span>
-                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">FastAPI</span>
-                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">Flask</span>
-                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">PyTorch</span>
-                        <span class="bg-zinc-900 text-emerald-300 py-1 px-3 rounded-md text-sm">TensorFlow</span>
+                    <h3 class="text-3xl font-semibold text-emerald-400 mb-6">Skills & Technologies</h3>
+                    <div class="flex flex-wrap gap-4 mb-10">
+                        <span class="skill-tag py-2 px-5 rounded-lg text-sm font-medium">Python</span>
+                        <span class="skill-tag py-2 px-5 rounded-lg text-sm font-medium">R</span>
+                        <span class="skill-tag py-2 px-5 rounded-lg text-sm font-medium">SQL</span>
+                        <span class="skill-tag py-2 px-5 rounded-lg text-sm font-medium">Pandas</span>
+                        <span class="skill-tag py-2 px-5 rounded-lg text-sm font-medium">Numpy</span>
+                        <span class="skill-tag py-2 px-5 rounded-lg text-sm font-medium">Seaborn</span>
+                        <span class="skill-tag py-2 px-5 rounded-lg text-sm font-medium">NLTK</span>
+                        <span class="skill-tag py-2 px-5 rounded-lg text-sm font-medium">Apache Airflow</span>
+                        <span class="skill-tag py-2 px-5 rounded-lg text-sm font-medium">Docker</span>
+                        <span class="skill-tag py-2 px-5 rounded-lg text-sm font-medium">MLFlow</span>
+                        <span class="skill-tag py-2 px-5 rounded-lg text-sm font-medium">FastAPI</span>
+                        <span class="skill-tag py-2 px-5 rounded-lg text-sm font-medium">Flask</span>
+                        <span class="skill-tag py-2 px-5 rounded-lg text-sm font-medium">PyTorch</span>
+                        <span class="skill-tag py-2 px-5 rounded-lg text-sm font-medium">TensorFlow</span>
                     </div>
                 </div>
             </div>
         </section>
         
         <!-- Experience Section -->
-        <section id="experience" class="py-24">
-            <h2 class="text-4xl font-bold text-center mb-16 fade-in-up">Experience</h2>
-            <div id="timeline-container" class="relative max-w-4xl mx-auto px-4 md:px-0">
+        <section id="experience" class="py-32">
+            <h2 class="section-title text-5xl font-bold text-center mb-20 fade-in-up gradient-text">Experience</h2>
+            <div id="timeline-container" class="relative max-w-5xl mx-auto px-4 md:px-0">
                 <!-- Timeline items will be injected here by JavaScript -->
             </div>
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="py-24">
-            <h2 class="text-4xl font-bold text-center mb-12 fade-in-up">My Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <section id="projects" class="py-32">
+            <h2 class="section-title text-5xl font-bold text-center mb-16 fade-in-up gradient-text">My Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 <!-- Project 1 -->
-                <div class="project-card rounded-lg p-6 flex flex-col fade-in-up" data-project-id="0">
-                    <img src="assets/startup_health_engine.jpg" alt="Startup Health Engine Project Image" class="rounded-md mb-4 aspect-video object-cover">
-                    <h3 class="text-2xl font-bold text-emerald-400 mb-2">Startup Health Engine</h3>
-                    <p class="text-slate-400 flex-grow mb-4">Automated startup health assessment pipeline using Apache Airflow, OCR & RAG-based AI...</p>
-                    <div class="mt-auto text-emerald-500 font-semibold inline-flex items-center">
-                        View Details <i class='bx bx-right-arrow-alt ml-1'></i>
+                <div class="project-card rounded-2xl p-8 flex flex-col fade-in-up overflow-hidden" data-project-id="0">
+                    <div class="overflow-hidden rounded-xl mb-6">
+                        <img src="assets/startup_health_engine.jpg" alt="Startup Health Engine Project Image" class="rounded-xl aspect-video object-cover w-full">
+                    </div>
+                    <h3 class="text-2xl font-bold text-emerald-400 mb-3">Startup Health Engine</h3>
+                    <p class="text-slate-400 flex-grow mb-6 leading-relaxed">Automated startup health assessment pipeline using Apache Airflow, OCR & RAG-based AI...</p>
+                    <div class="mt-auto text-emerald-400 font-semibold inline-flex items-center hover:text-emerald-300 transition-colors">
+                        View Details <i class='bx bx-right-arrow-alt ml-1 text-2xl'></i>
                     </div>
                 </div>
                  <!-- Project 2 -->
-                <div class="project-card rounded-lg p-6 flex flex-col fade-in-up" style="transition-delay: 200ms;" data-project-id="1">
-                     <img src="assets/semantic_book_rec.png" alt="Book Recommendation Project Image" class="rounded-md mb-4 aspect-video object-cover">
-                    <h3 class="text-2xl font-bold text-emerald-400 mb-2">Book Recommendation Engine</h3>
-                    <p class="text-slate-400 flex-grow mb-4">AI-powered recommendation engine using vector search and LLMs for semantic understanding...</p>
-                    <div class="mt-auto text-emerald-500 font-semibold inline-flex items-center">
-                        View Details <i class='bx bx-right-arrow-alt ml-1'></i>
+                <div class="project-card rounded-2xl p-8 flex flex-col fade-in-up overflow-hidden" style="transition-delay: 200ms;" data-project-id="1">
+                    <div class="overflow-hidden rounded-xl mb-6">
+                        <img src="assets/semantic_book_rec.png" alt="Book Recommendation Project Image" class="rounded-xl aspect-video object-cover w-full">
+                    </div>
+                    <h3 class="text-2xl font-bold text-emerald-400 mb-3">Book Recommendation Engine</h3>
+                    <p class="text-slate-400 flex-grow mb-6 leading-relaxed">AI-powered recommendation engine using vector search and LLMs for semantic understanding...</p>
+                    <div class="mt-auto text-emerald-400 font-semibold inline-flex items-center hover:text-emerald-300 transition-colors">
+                        View Details <i class='bx bx-right-arrow-alt ml-1 text-2xl'></i>
                     </div>
                 </div>
                  <!-- Project 3 -->
-                <div class="project-card rounded-lg p-6 flex flex-col fade-in-up" style="transition-delay: 400ms;" data-project-id="2">
-                    <img src="assets/Leishmaniasis_ML.jpeg" alt="Drug Discovery Project Image" class="rounded-md mb-4 aspect-video object-cover">
-                    <h3 class="text-2xl font-bold text-emerald-400 mb-2">Leishmaniasis Drug Discovery</h3>
-                    <p class="text-slate-400 flex-grow mb-4">End-to-end ML pipeline for drug discovery using ChEMBL data. Trained 36 models...</p>
-                     <div class="mt-auto text-emerald-500 font-semibold inline-flex items-center">
-                        View Details <i class='bx bx-right-arrow-alt ml-1'></i>
+                <div class="project-card rounded-2xl p-8 flex flex-col fade-in-up overflow-hidden" style="transition-delay: 400ms;" data-project-id="2">
+                    <div class="overflow-hidden rounded-xl mb-6">
+                        <img src="assets/Leishmaniasis_ML.jpeg" alt="Drug Discovery Project Image" class="rounded-xl aspect-video object-cover w-full">
+                    </div>
+                    <h3 class="text-2xl font-bold text-emerald-400 mb-3">Leishmaniasis Drug Discovery</h3>
+                    <p class="text-slate-400 flex-grow mb-6 leading-relaxed">End-to-end ML pipeline for drug discovery using ChEMBL data. Trained 36 models...</p>
+                     <div class="mt-auto text-emerald-400 font-semibold inline-flex items-center hover:text-emerald-300 transition-colors">
+                        View Details <i class='bx bx-right-arrow-alt ml-1 text-2xl'></i>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Blog Section -->
-        <section id="blog" class="py-24">
-            <h2 class="text-4xl font-bold text-center mb-12 fade-in-up">My Articles</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <section id="blog" class="py-32">
+            <h2 class="section-title text-5xl font-bold text-center mb-16 fade-in-up gradient-text">My Articles</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
                  <!-- Blog Post 1 -->
-                <div class="project-card rounded-lg p-6 flex flex-col fade-in-up" style="cursor: default;">
-                    <h3 class="text-2xl font-bold text-emerald-400 mb-2">The Rise of MLOps: Automating the ML Lifecycle</h3>
-                    <p class="text-slate-400 flex-grow mb-4">An overview of MLOps principles and why they are crucial for building scalable and maintainable machine learning systems in production...</p>
-                    <a href="https://medium.com/@parthsharma23212/the-rise-of-mlops-automating-the-ml-lifecycle-c1331ce59a24" target="_blank" class="mt-auto text-emerald-400 hover:text-emerald-300 font-semibold inline-flex items-center">
-                        Read More <i class='bx bx-right-arrow-alt ml-1'></i>
+                <div class="project-card rounded-2xl p-8 flex flex-col fade-in-up" style="cursor: default;">
+                    <h3 class="text-2xl font-bold text-emerald-400 mb-4">The Rise of MLOps: Automating the ML Lifecycle</h3>
+                    <p class="text-slate-400 flex-grow mb-6 leading-relaxed text-lg">An overview of MLOps principles and why they are crucial for building scalable and maintainable machine learning systems in production...</p>
+                    <a href="https://medium.com/@parthsharma23212/the-rise-of-mlops-automating-the-ml-lifecycle-c1331ce59a24" target="_blank" class="mt-auto text-emerald-400 hover:text-emerald-300 font-semibold inline-flex items-center transition-colors group">
+                        Read More <i class='bx bx-right-arrow-alt ml-1 text-2xl group-hover:translate-x-1 transition-transform'></i>
                     </a>
                 </div>
                  <!-- Blog Post 2 -->
-                <div class="project-card rounded-lg p-6 flex flex-col fade-in-up" style="transition-delay: 200ms; cursor: default;">
-                    <h3 class="text-2xl font-bold text-emerald-400 mb-2">Understanding Vector Databases for AI Applications</h3>
-                    <p class="text-slate-400 flex-grow mb-4">A deep dive into how vector databases work and why they are the backbone of modern AI applications like semantic search and RAG...</p>
-                    <a href="https://medium.com/@parthsharma23212/understanding-vector-databases-for-ai-applications-a4663c3891fb" target="_blank" class="mt-auto text-emerald-400 hover:text-emerald-300 font-semibold inline-flex items-center">
-                        Read More <i class='bx bx-right-arrow-alt ml-1'></i>
+                <div class="project-card rounded-2xl p-8 flex flex-col fade-in-up" style="transition-delay: 200ms; cursor: default;">
+                    <h3 class="text-2xl font-bold text-emerald-400 mb-4">Understanding Vector Databases for AI Applications</h3>
+                    <p class="text-slate-400 flex-grow mb-6 leading-relaxed text-lg">A deep dive into how vector databases work and why they are the backbone of modern AI applications like semantic search and RAG...</p>
+                    <a href="https://medium.com/@parthsharma23212/understanding-vector-databases-for-ai-applications-a4663c3891fb" target="_blank" class="mt-auto text-emerald-400 hover:text-emerald-300 font-semibold inline-flex items-center transition-colors group">
+                        Read More <i class='bx bx-right-arrow-alt ml-1 text-2xl group-hover:translate-x-1 transition-transform'></i>
                     </a>
                 </div>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-24">
-            <h2 class="text-4xl font-bold text-center mb-4 fade-in-up">Get In Touch</h2>
-            <p class="text-center text-slate-400 max-w-xl mx-auto mb-12 fade-in-up">I'm currently seeking new opportunities. Whether you have a question or just want to say hi, my inbox is always open!</p>
-            <form action="#" method="POST" class="max-w-xl mx-auto fade-in-up">
-                <div class="mb-4">
-                    <label for="name" class="block mb-2 text-sm font-medium">Your Name</label>
-                    <input type="text" id="name" name="name" class="bg-zinc-800 border border-zinc-700 text-slate-300 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5" placeholder="John Doe" required>
-                </div>
-                <div class="mb-4">
-                    <label for="email" class="block mb-2 text-sm font-medium">Your Email</label>
-                    <input type="email" id="email" name="email" class="bg-zinc-800 border border-zinc-700 text-slate-300 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5" placeholder="name@email.com" required>
-                </div>
-                 <div class="mb-4">
-                    <label for="subject" class="block mb-2 text-sm font-medium">Subject</label>
-                    <input type="text" id="subject" name="subject" class="bg-zinc-800 border border-zinc-700 text-slate-300 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5" placeholder="Let's connect!" required>
+        <section id="contact" class="py-32">
+            <h2 class="section-title text-5xl font-bold text-center mb-6 fade-in-up gradient-text">Get In Touch</h2>
+            <p class="text-center text-slate-300 text-lg max-w-2xl mx-auto mb-16 fade-in-up">I'm currently seeking new opportunities. Whether you have a question or just want to say hi, my inbox is always open!</p>
+            
+            <!-- Success Message (Hidden by default) -->
+            <div id="contact-success" class="hidden max-w-2xl mx-auto mb-8 p-6 bg-emerald-500/20 border border-emerald-500/50 rounded-xl text-center">
+                <p class="text-emerald-400 text-lg font-semibold">✓ Message sent successfully! I'll get back to you soon.</p>
+            </div>
+            
+            <form id="contact-form" class="max-w-2xl mx-auto fade-in-up">
+                <div class="mb-6">
+                    <label for="name" class="block mb-3 text-sm font-medium text-slate-300">Your Name</label>
+                    <input type="text" id="name" name="name" class="form-input text-slate-300 text-base rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block w-full p-4" placeholder="John Doe" required>
                 </div>
                 <div class="mb-6">
-                    <label for="message" class="block mb-2 text-sm font-medium">Your Message</label>
-                    <textarea id="message" name="message" rows="4" class="bg-zinc-800 border border-zinc-700 text-slate-300 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5" placeholder="Your message..."></textarea>
+                    <label for="email" class="block mb-3 text-sm font-medium text-slate-300">Your Email</label>
+                    <input type="email" id="email" name="email" class="form-input text-slate-300 text-base rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block w-full p-4" placeholder="name@email.com" required>
+                </div>
+                 <div class="mb-6">
+                    <label for="subject" class="block mb-3 text-sm font-medium text-slate-300">Subject</label>
+                    <input type="text" id="subject" name="subject" class="form-input text-slate-300 text-base rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block w-full p-4" placeholder="Let's connect!" required>
+                </div>
+                <div class="mb-8">
+                    <label for="message" class="block mb-3 text-sm font-medium text-slate-300">Your Message</label>
+                    <textarea id="message" name="message" rows="5" class="form-input text-slate-300 text-base rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block w-full p-4" placeholder="Your message..." required></textarea>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="bg-emerald-500 text-black font-bold py-3 px-10 rounded-full hover:bg-emerald-400 btn-glow transition-all duration-300">Send Message</button>
+                    <button type="submit" class="bg-emerald-500 text-black font-bold py-4 px-12 rounded-full hover:bg-emerald-400 btn-glow transition-all duration-300 text-lg shadow-lg">Send Message</button>
                 </div>
             </form>
+            
+            <!-- Alternative: Direct Email Link -->
+            <div class="text-center mt-8 fade-in-up">
+                <p class="text-slate-400 mb-4">Or reach out directly:</p>
+                <a href="mailto:parthsharma23212@gmail.com" class="text-emerald-400 hover:text-emerald-300 font-semibold inline-flex items-center text-lg transition-colors">
+                    <i class='bx bx-envelope mr-2 text-2xl'></i>
+                    parthsharma23212@gmail.com
+                </a>
+            </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-zinc-800">
-        <div class="container mx-auto px-6 py-6 text-center text-slate-500">
-            <p>&copy; 2025 Parth Sharma. All Rights Reserved.</p>
+    <footer class="border-t border-emerald-400/20 bg-gradient-to-b from-black to-zinc-900">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p class="text-slate-400">&copy; 2025 Parth Sharma. All Rights Reserved.</p>
+            <div class="flex justify-center items-center gap-x-6 mt-4">
+                <a href="https://github.com/ParthSharma272" target="_blank" class="text-slate-400 hover:text-emerald-400 transition-colors text-2xl" aria-label="GitHub">
+                    <i class='bx bxl-github'></i>
+                </a>
+                <a href="https://www.linkedin.com/in/parth-sharma-08b1b424b/" target="_blank" class="text-slate-400 hover:text-emerald-400 transition-colors text-2xl" aria-label="LinkedIn">
+                    <i class='bx bxl-linkedin'></i>
+                </a>
+                <a href="https://www.kaggle.com/parthsharma272" target="_blank" class="text-slate-400 hover:text-emerald-400 transition-colors text-2xl" aria-label="Kaggle">
+                    <i class='bx bxl-kaggle'></i>
+                </a>
+                <a href="https://medium.com/@parthsharma23212" target="_blank" class="text-slate-400 hover:text-emerald-400 transition-colors text-2xl" aria-label="Medium">
+                    <i class='bx bxl-medium'></i>
+                </a>
+            </div>
         </div>
     </footer>
 
     <!-- Project Detail Modal -->
     <div id="project-modal" class="fixed inset-0 z-50 items-center justify-center hidden">
         <div class="modal-overlay absolute inset-0 cursor-pointer"></div>
-        <div class="modal-content w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 rounded-lg shadow-xl relative mx-4">
-            <button id="close-project-modal-btn" class="absolute top-4 right-4 text-3xl hover:text-emerald-400" aria-label="Close project details">&times;</button>
+        <div class="modal-content w-full max-w-4xl max-h-[90vh] overflow-y-auto p-10 rounded-2xl shadow-2xl relative mx-4">
+            <button id="close-project-modal-btn" class="absolute top-6 right-6 text-4xl text-slate-400 hover:text-emerald-400 transition-colors duration-300" aria-label="Close project details">&times;</button>
             <div id="project-modal-body">
                 <!-- Content will be injected by JavaScript -->
             </div>
@@ -384,20 +606,20 @@
             });
 
             function populateProjectModal(project) {
-                const techStackHtml = project.techStack.map(tech => `<span class="bg-zinc-800 text-emerald-300 py-1 px-3 rounded-md text-sm">${tech}</span>`).join('');
-                const summaryHtml = project.summary.map(point => `<li class="mb-2">${point}</li>`).join('');
+                const techStackHtml = project.techStack.map(tech => `<span class="skill-tag py-2 px-4 rounded-lg text-sm font-medium inline-block">${tech}</span>`).join('');
+                const summaryHtml = project.summary.map(point => `<li class="mb-3 text-slate-300 leading-relaxed">${point}</li>`).join('');
                 projectModalBody.innerHTML = `
-                    <h2 class="text-3xl font-bold text-emerald-400 mb-4">${project.title}</h2>
-                    <img src="${project.images.cover}" alt="${project.title} cover image" class="rounded-lg mb-6 w-full aspect-video object-cover">
-                    <h3 class="text-2xl font-semibold mb-3 text-emerald-500">Key Features</h3>
-                    <ul class="list-disc list-inside mb-6 text-slate-400">${summaryHtml}</ul>
-                    <div class="mb-6">
-                        <h3 class="text-2xl font-semibold mb-3 text-emerald-500">Tech Stack</h3>
+                    <h2 class="text-4xl font-bold text-emerald-400 mb-6 gradient-text">${project.title}</h2>
+                    <img src="${project.images.cover}" alt="${project.title} cover image" class="rounded-2xl mb-8 w-full aspect-video object-cover shadow-lg">
+                    <h3 class="text-3xl font-semibold mb-4 text-emerald-400">Key Features</h3>
+                    <ul class="list-disc list-inside mb-8 text-lg">${summaryHtml}</ul>
+                    <div class="mb-8">
+                        <h3 class="text-3xl font-semibold mb-4 text-emerald-400">Tech Stack</h3>
                         <div class="flex flex-wrap gap-3">${techStackHtml}</div>
                     </div>
-                    <div class="flex gap-4 mt-8 justify-end">
-                        <a href="${project.links.github}" target="_blank" class="border-2 border-emerald-500 text-emerald-500 font-bold py-2 px-6 rounded-full hover:bg-emerald-500 hover:text-black transition-all duration-300 inline-flex items-center">
-                            View on GitHub <i class='bx bx-link-external ml-2'></i>
+                    <div class="flex gap-5 mt-10 justify-end">
+                        <a href="${project.links.github}" target="_blank" class="border-2 border-emerald-500 text-emerald-400 font-bold py-3 px-8 rounded-full hover:bg-emerald-500 hover:text-black transition-all duration-300 inline-flex items-center shadow-lg hover:shadow-emerald-500/50">
+                            View on GitHub <i class='bx bx-link-external ml-2 text-xl'></i>
                         </a>
                     </div>
                 `;
@@ -426,6 +648,42 @@
                 }); 
             });
 
+            // Contact Form Handler
+            const contactForm = document.getElementById('contact-form');
+            const contactSuccess = document.getElementById('contact-success');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    // Get form data
+                    const formData = {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        subject: document.getElementById('subject').value,
+                        message: document.getElementById('message').value
+                    };
+                    
+                    // Create mailto link with form data
+                    const mailtoLink = `mailto:parthsharma23212@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)}`;
+                    
+                    // Open mailto link
+                    window.location.href = mailtoLink;
+                    
+                    // Show success message
+                    contactSuccess.classList.remove('hidden');
+                    contactForm.reset();
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        contactSuccess.classList.add('hidden');
+                    }, 5000);
+                    
+                    // Scroll to success message
+                    contactSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            }
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
             }, { threshold: 0.1 });
@@ -435,24 +693,24 @@
                 let timelineHTML = '';
                 experienceData.forEach((item, index) => {
                     const isOdd = index % 2 !== 0;
-                    const sideClass = isOdd ? 'md:ml-auto md:pl-8' : 'md:pr-8';
+                    const sideClass = isOdd ? 'md:ml-auto md:pl-10' : 'md:pr-10';
                     const textAlignClass = isOdd ? 'md:text-left' : 'md:text-right';
 
                     timelineHTML += `
-                        <div class="relative mb-12 fade-in-up">
-                            <div class="absolute w-4 h-4 bg-emerald-400 rounded-full left-4 -top-1.5 transform -translate-x-1/2 border-4 border-black md:left-1/2"></div>
-                            <div class="w-full pl-8 md:w-1/2 ${sideClass}">
-                                <div class="bg-zinc-900 p-6 rounded-lg border border-zinc-800">
-                                    <p class="text-sm text-slate-400 ${textAlignClass}">${item.date}</p>
-                                    <h3 class="text-xl font-bold text-emerald-400 ${textAlignClass}">${item.title}</h3>
-                                    <p class="text-slate-400 mt-2 ${textAlignClass}">${item.description}</p>
+                        <div class="relative mb-16 fade-in-up" style="transition-delay: ${index * 150}ms;">
+                            <div class="absolute w-5 h-5 bg-emerald-400 rounded-full left-4 top-0 transform -translate-x-1/2 border-4 border-black md:left-1/2 shadow-lg shadow-emerald-400/50 z-10"></div>
+                            <div class="w-full pl-10 md:w-1/2 ${sideClass}">
+                                <div class="timeline-item p-8 rounded-2xl">
+                                    <p class="text-sm text-emerald-400 font-semibold ${textAlignClass} mb-2">${item.date}</p>
+                                    <h3 class="text-2xl font-bold text-slate-200 ${textAlignClass} mb-3">${item.title}</h3>
+                                    <p class="text-slate-400 ${textAlignClass} leading-relaxed">${item.description}</p>
                                 </div>
                             </div>
                         </div>
                     `;
                 });
                 container.innerHTML = `
-                    <div class="absolute h-full w-0.5 bg-zinc-700 left-4 md:left-1/2 md:-translate-x-1/2"></div>
+                    <div class="absolute h-full w-1 bg-gradient-to-b from-emerald-400 via-emerald-500 to-emerald-600 left-4 md:left-1/2 md:-translate-x-1/2 opacity-30"></div>
                     ${timelineHTML}
                 `;
                  const allFadeInElements = document.querySelectorAll('.fade-in-up');
